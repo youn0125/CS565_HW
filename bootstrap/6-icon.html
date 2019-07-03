@@ -10,17 +10,40 @@
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 		<style type="text/css">
 			body {
 				padding-top:20px;
 			}
+			input[type='text']{
+				min-height: 38px;
+				line-height: 38px;
+			}
+			input[type='text']::-webkit-input-placeholder {
+				font-size: 16px;
+				vertical-align: middle;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<!-- use an inline form to accomplish the horizontal layout. -->
+			<form class="form-inline">
+				<div class ="form-group mb-2 mr-2">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="amount">
+						<div class="input-group-append">
+							<span class="input-group-text"><i class="fa fa-usd"></i></span>
+						</div>
+					</div>
+				</div>
+				<button  class="btn btn-primary mb-2">
+					<i class="fa fa-shopping-cart"></i>
+				</button>
+				<button  class="btn btn-primary mb-2 ml-2">
+					<i class="fa fa-trash"></i>
+				</button>
+			</form>
 		</div>
 	</body>
 </html>
