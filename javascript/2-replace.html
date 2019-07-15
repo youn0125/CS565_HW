@@ -8,7 +8,10 @@
 		<script type="text/javascript">
 			var functionReplace = function(strInput) {
 				// return strInput with 'quick' replaced by 'sly' and 'lazy' replaced by 'sharp', regardless of the case of the letters
-
+				var reg = new RegExp('(quick)', 'gi');
+				strInput = strInput.replace(reg, 'sly');
+				reg = new RegExp('(lazy)', 'gi');
+				strInput = strInput.replace(reg, 'sharp');
 				// note that you will have to use a regexp for this task
 				// using strInput.split('quick').join('sly') is commonly suggested for doing string replacement
 				// this will not work this exercise though, as the matching is required to be case insensitive
