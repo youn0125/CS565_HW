@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<input id="first" type="text" value="first">
@@ -16,12 +16,20 @@
 		<script type="text/javascript">
 			var functionGet = function(strSelector) {
 				// determine whether the content of jQuery(strSelector) should be retrieved by using .val() or .text() and return this content
+				if($(strSelector).val()) 
+					return $(strSelector).val();
+				else if ( $(strSelector).text())
+					return $(strSelector).text();
 
-				return '';
+
 			};
 
 			var functionSet = function(strSelector, strContent) {
 				// determine whether the content of jQuery(strSelector) should be set by using .val() or .text() and set it to strContent
+				if($(strSelector).val()) 
+					$(strSelector).val(strContent);
+				else if ( $(strSelector).text())
+					$(strSelector).text(strContent);
 			};
 
 			console.log(functionGet('#first')); // expected: 'first'
