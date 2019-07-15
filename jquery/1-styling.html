@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<style type="text/css">
 			.first {
@@ -31,11 +31,29 @@
 			// make the text in jQuery('#second') bold as well as italic
 
 			// remove 'third' as a class from jQuery('#third') and apply the style of this class directly to the element instead
-
+			$('#first')
+				.addClass('first')
+				.css({
+					'background-color': '#CCCCCC'
+				});
+			$('#second')
+				.css({
+					'font-weight': 'bold',
+					'font-style' : 'italic'
+				});
+			$('#third')
+				.removeClass('third')
+				.css({
+					'position' : 'fixed',
+					'top':'10px',
+					'right':'10px'
+				});
 			var functionFixed = function(strSelector) {
 				// return whether jQuery(strSelector) has a fixed position
-
-				return false;
+				if ($(strSelector).css('position') === 'fixed')
+					return true;
+				else
+					return false;
 			};
 
 			console.log(functionFixed('#first')); // expected: false
@@ -43,7 +61,8 @@
 
 			var functionClass = function(strSelector, strClass) {
 				// return whether jQuery(strSelector) has strClass (the name of a css class) attached to it
-
+				if ($(strSelector).hasClass(strClass))
+					return true;
 				return false;
 			};
 
