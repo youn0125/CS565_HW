@@ -10,8 +10,13 @@
 		<script type="text/javascript">
 			var functionPrint = function(intEpoch) {
 				// given intEpoch (an epoch time), return a string that represents the given date in the format expected by the given examples
-
-				return '';
+				var day = moment(intEpoch).format("dddd");
+				var dateMonth = moment(intEpoch).format("Do of MMMM");
+				var year = moment(intEpoch).format("YYYY");
+				var fNow = moment([year, 0, 29]).fromNow();
+				var res = day + " the " + dateMonth + " in " + year + " - " + fNow;
+				
+				return res;
 			};
 
 			console.log(functionPrint(152129040472)); // expected: 'Sunday the 27th of October in 1974 - 42 years ago' (assuming pacific standard time, i wrote these instructions in 2016, so the year difference might be off now)
