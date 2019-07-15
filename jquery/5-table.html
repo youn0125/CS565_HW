@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="output"></div>
@@ -15,14 +15,39 @@
 				// create a table with the width and height and in doing so, set the text to each cell / td element to 'y.x' (see example below)
 				// remember that you were already asked to create a table in the javascript section, but here you are asked to return a jquery object that represents a table
 				// to do this, you will have create jquery elements that represent the tr / td elements and append them systematically to a jquery table element
-
-				return jQuery('<table></table>');
+				var res = $('<table border=\"1\"></table>');
+				for (var i = 1; i < intHeight+1; i++) {
+					var tr = $('<tr></tr>');
+					for (var j = 1; j < intWidth+1; j++) {
+						var td = $('<td></td>');
+						td.text(i+"."+j);
+						tr.append(td); 
+					}
+					res.append(tr);
+				}
+				return res;
 			};
+			/*$('body')
+				.append($('<div></div>')
+					.css({
+						'margin': '10px',
+						'padding': '10px',
+						'background-color': '#CCCCCC'
+					})
+					.append($('<ul></ul>')
+						.append($('<li></li>')
+							.text('first')
+						)
+						.append($('<li></li>')
+							.text('second')
+						)
+					)
+				);*/
 
 			jQuery('#output')
 				.append(functionCreate(3, 2))
 			;
-			
+
 			// expected table for functionCreate(2, 1):
 			//   <table border="1">
 			//     <tr>
