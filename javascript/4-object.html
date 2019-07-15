@@ -10,10 +10,12 @@
 
 			var functionInsert = function(strKey, strValue) {
 				// insert the property with strKey and strValue into objectStrings
+				objectStrings[strKey] = strValue;
 			};
 
 			var functionDelete = function(strKey) {
 				// remove the property with strKey from objectStrings
+				delete objectStrings[strKey];
 			};
 
 			var functionLookup = function(strKey) {
@@ -21,14 +23,26 @@
 
 				// objectStrings might not contain strKey
 				// should this be the case, return an empty string
-
-				return '';
+				var res = "";
+				if (objectStrings[strKey] == undefined )
+					return '';
+				else
+					return objectStrings[strKey];
 			};
 
 			var functionKeys = function() {
 				// return a string of the concatenated strKey in objectStrings, separated by commas
-
-				return '';
+				var objectKeys = "";
+				var x = 0;
+				var len = Object.keys(objectStrings).length;
+				for(var key in objectStrings){
+					if(x != (len-1))
+						objectKeys += key + ', ';
+					else
+						objectKeys += key;
+					x++;
+				}
+				return objectKeys;
 			};
 
 			functionInsert('hello', 'world');
