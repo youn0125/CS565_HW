@@ -13,8 +13,20 @@
 				// create a html table that represents the csv given in strInput set the content of the output div to this html table
 				// you can either create a string that represents the html and use innerHTML to set it or you can use createElement / appendChild
 				// should this function be called multiple times, the output div should only contain the table of the most recent call
+				var lines = strInput.split("\n");
+				var output = [];
+				var i;
 
-				document.getElementById('output').innerHTML = '';
+				for (i=0; i < lines.length; i++){
+					if (lines[i] != "")
+						output.push("<tr><td>" 
+									+ lines[i].slice().split(",").join("</td><td>") 
+									+ "</td></tr>");
+				
+				}
+				output = "<table border=\"1\">" + output.join("") + "</table>";
+
+				document.getElementById('output').innerHTML = output;
 			};
 
 			functionCreate('a,b,c\n1,2,3\n'); // the new line at the end should not make a difference
