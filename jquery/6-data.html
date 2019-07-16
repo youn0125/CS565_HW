@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="output"></div>
@@ -15,8 +15,25 @@
 				// create a table similar to the previous exercise, but with 'click me' as the text for each cell / td element
 				// when a cell / td element is being clicked, its text should be changed to 'y.x' (see example below)
 				// you have to attach a click listener to each cell / td element and i recommend to make use of the jquery data function
-
-				return jQuery('<table></table>');
+				
+				//same with 5-table.html and added onlick listener to <td> element.
+				//also set data to <td> element to retrieve i.j.
+				var res = $('<table border=\"1\"></table>');
+				for (var i = 1; i < intHeight+1; i++) {
+					var tr = $('<tr></tr>');
+					for (var j = 1; j < intWidth+1; j++) {
+						var td = $('<td></td>');
+						td.text("click me");
+						td.data({'ij': i+"."+j });
+						td.on('click', function() {
+							$(this)
+								.text($(this).data('ij') );
+						});
+						tr.append(td); 
+					}
+					res.append(tr);
+				}
+				return res;
 			};
 
 			jQuery('#output')
