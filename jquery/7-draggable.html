@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<style type="text/css">
 			#draggable {
@@ -32,6 +32,32 @@
 			// you can try setting the position of jQuery('#draggable') to event.pageX / .pageY but you eventually have to also incorporate the relative position that we computed in the mousedown event
 
 			// attach a mouseup listener to jQuery(document) that resets the global is-being-dragged flag, such that the dragging will stop once you lift the mouse button
+			$('#draggable')
+				.on('mousedown', function(e){
+					//create my_dragging object to save x, y and $('#draggable').offset() when mousedown.
+					window.my_dragging = {};
+					my_dragging.pageX0 = e.pageX;
+					my_dragging.pageY0 = e.pageY;
+					my_dragging.elem = this;
+					my_dragging.offset0 = $(this).offset();
+					function handle_dragging(e){
+						var left = my_dragging.offset0.left + (e.pageX - my_dragging.pageX0);
+						var top = my_dragging.offset0.top + (e.pageY - my_dragging.pageY0);
+						//refresh with new offset.
+						$(my_dragging.elem)
+						.offset({top: top, left: left});
+					}
+					function handle_mouseup(e){
+						//unattach the mousemove and mouseup listener from the body when mouseup from this element.
+						$('body')
+						.off('mousemove', handle_dragging)
+						.off('mouseup', handle_mouseup);
+					}
+					//attach a mouseup and mousemove listener to $('body') when mousedown in this element.
+					$('body')
+						.on('mouseup', handle_mouseup)
+						.on('mousemove', handle_dragging);
+				});
 		</script>
 	</body>
 </html>
