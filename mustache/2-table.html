@@ -67,5 +67,20 @@
 					</tr>
 				</table>
 		-->
+		<table border="1">
+			<tr>
+				<th>name</th>
+				<th>gender</th>
+			</tr>
+			{{ #objectUsers }}
+			{{ #boolVisible }}
+			<tr>
+				<td>{{ #functionName}} {{.}} {{ /functionName}}</td>
+				<td>{{strGender}}</td>
+			</tr>
+			{{ /boolVisible }}
+			{{ /objectUsers }}			
+		</table>
+
 	</body>
 </html>
