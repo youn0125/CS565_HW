@@ -32,3 +32,27 @@ var querystring = require('querystring'); // do not change this line
 //       </table>
 //     </body>
 //   </html>
+var server = http.createServer(function( req, res) {  
+    if (req.url === '/') {
+        res.writeHead(200, {'Content-Type': 'text/plain'});    
+        res.end('you have accessed the root');
+    }
+    else if (req.url.indexOf('/test') === 0) {    
+        res.writeHead(200, {'Content-Type': 'text/plain'});    
+        res.end('you have accessed \"' + decodeURIComponent(req.url.substr(6)) +'\" within test');  
+    } 
+    else if (req.url.indexOf('/attribute') === 0) {
+        res.writeHead(200, {'Content-Type': 'text/html' });  
+        var attribute = url.parse(req.url,true).query; //return an object.
+        const entries = Object.entries(attribute);  //change to array.
+        //start creating table.
+        res.write('<table border="1">');
+        for(const [key, value] of entries){
+            res.write(`<tr><td>${key}</td><td>${value}</td></tr>`);
+        }
+        res.end('');
+    } 
+    else
+        res.end();
+});
+server.listen(process.env.PORT || 8080);
