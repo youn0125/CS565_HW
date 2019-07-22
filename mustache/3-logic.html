@@ -52,5 +52,45 @@
 					</tr>
 				</table>
 		-->
+		<table border="1">
+			<tr>
+				<th>name</th>
+				<th>value</th>
+				<th>change</th>
+				<th>time</th>
+				<th>volume</th>
+			</tr>
+
+
+			<script type = "text/javascript">
+			{{ #objectStocks }}	
+				//var strN = {{ strName }};
+				var dbval = {{ dblValue }}.toFixed(2);
+				var dbchange = {{ dblChange }}.toFixed(2);
+				var bgcolor = '';
+				if (dbchange > 0 )
+					bgcolor = 'rgb(173, 196, 162)';
+				else
+					bgcolor = 'rgb(188, 103, 114)';
+
+				var time = moment({{intTime}}).format('YYYY.MM.DD - HH:mm:ss.SSS');
+				var vol = {{ intVolume }};
+				if (vol >= 1000000000 ) {
+					vol = (vol/1000000000).toFixed(1);
+					vol = vol+' B';
+				}
+				else if ( 1000000 <= vol && vol < 1000000000) {
+					vol = (vol/1000000).toFixed(1);
+					vol = vol + ' M';
+				}
+				else if ( 1000 <= vol && vol < 1000000) {
+					vol = (vol/1000).toFixed(1);
+					vol = vol + ' T';
+				}
+				$('table').append('<tr><td>{{ strName }}</td><td>' + dbval + '</td><td style=\"background-color: ' + bgcolor + '\;\">' + dbchange + '</td><td>' + time + '</td><td>' + vol +'</td></tr>');
+			{{ /objectStocks }}	
+			</script>
+			
+		</table>
 	</body>
 </html>
