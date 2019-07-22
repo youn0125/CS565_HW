@@ -63,18 +63,22 @@
 
 
 			<script type = "text/javascript">
+			//looping
 			{{ #objectStocks }}	
-				//var strN = {{ strName }};
+				//var strN = {{ strName }}; //strName is string.
+				//Fixed to 2 digits for dblValue.
 				var dbval = {{ dblValue }}.toFixed(2);
 				var dbchange = {{ dblChange }}.toFixed(2);
+				//Change the bgcolor of td.
 				var bgcolor = '';
 				if (dbchange > 0 )
 					bgcolor = 'rgb(173, 196, 162)';
 				else
 					bgcolor = 'rgb(188, 103, 114)';
-
+				//Change the date format.
 				var time = moment({{intTime}}).format('YYYY.MM.DD - HH:mm:ss.SSS');
 				var vol = {{ intVolume }};
+				//Fixed to 1 digit and divided into 3 groups(billion/million/thousand).
 				if (vol >= 1000000000 ) {
 					vol = (vol/1000000000).toFixed(1);
 					vol = vol+' B';
@@ -87,6 +91,7 @@
 					vol = (vol/1000).toFixed(1);
 					vol = vol + ' T';
 				}
+				//append row and column to table with specific values. 
 				$('table').append('<tr><td>{{ strName }}</td><td>' + dbval + '</td><td style=\"background-color: ' + bgcolor + '\;\">' + dbchange + '</td><td>' + time + '</td><td>' + vol +'</td></tr>');
 			{{ /objectStocks }}	
 			</script>
