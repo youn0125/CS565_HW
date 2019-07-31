@@ -30,3 +30,35 @@ var express = require('express'); // do not change this line
 //       </table>
 //     </body>
 //   </html>
+
+const server = express();
+
+server.get('/', function(req,res) {
+    res.status(200);
+    res.set({'Content-type': 'text/plain'});
+    res.send('you have accessed the root');
+});
+server.get('/test/:parameter', function(req,res) {
+    res.status(200);
+    res.set({'Content-type': 'text/plain'});
+    res.send(`you have accessed "${req.params.parameter}" within test`);
+});
+server.get('/attributes', function(req, res) {
+    res.status(200);
+    res.set({'Content-Type': 'text/html'});
+    var attribute = req.query;
+    const entries = Object.entries(attribute);  //change to array.
+    //start creating table.
+    res.write('<table border="1">');
+    for(const [key, value] of entries){
+        res.write(`<tr><td>${key}</td><td>${value}</td></tr>`);
+    }
+    res.end('');
+
+});
+server.get('/:parameter', function(req,res) {
+    res.status(200);
+    res.set({'Content-type': 'text/plain'});
+    res.send('');
+});
+server.listen(process.env.PORT || 8080);
