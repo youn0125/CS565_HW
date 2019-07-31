@@ -38,6 +38,8 @@ server.get('/', function(req,res) {
     res.set({'Content-type': 'text/plain'});
     res.send('you have accessed the root');
 });
+
+//Route parameters.
 server.get('/test/:parameter', function(req,res) {
     res.status(200);
     res.set({'Content-type': 'text/plain'});
