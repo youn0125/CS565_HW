@@ -46,6 +46,24 @@
 			// when somebody selects an option in the choice selection element, the script should make a get request to: http://cs465.oregonctf.org/playground/ajax/lookup.json?strName=max
 			// the data that is being received by this query is in the json format and might look like: { 'strFirst':'max','strLast':'baum','strGender':'male','strRandom':'3BLJEkKk' }
 			// this received data should subsequently be used to set the first textbox, the last textbox, the gender radio button as well as the random textbox
+			$('#choice').on('change', function(){
+			console.log('select change');
+			$.ajax({
+				'type': 'GET',
+				'url': 'http://cs465.oregonctf.org/playground/ajax/lookup.json?strName=' + $('#choice option:selected').text(),
+				//'data': encodeURIComponent($('#input').val()),
+				'success': function(objectData) {
+					$('#first').val(objectData.strFirst);
+					$('#last').val(objectData.strLast);
+					$("input[name='gender'][value='"+objectData.strGender+"']").prop('checked', true);
+					$('#random').val(objectData.strRandom);
+
+				},
+				'error': function(objectData) {
+					console.log(objectData);
+				}
+			});
+		})
 		</script>
 	</body>
 </html>
