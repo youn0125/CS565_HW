@@ -68,50 +68,41 @@
 
 			// when receiving a 'drag' event from the server, use the contained strIdent and the intLeft as well as intTop position to update the associated element
 			// for example, you might receive the following in the 'drag' event when the last div has been dragged to the left: { 'strIdent':'fourth', 'intLeft':20, 'intTop':120 }
-			var dragged = null;
-			var shiftX = 0;
-			var shiftY = 0;
 
-			$(document).on('mousemove', function(event) {
-				if (dragged !== null) {
+		$('.draggable')
+			.on('mousedown', function(e){
+				//create my_dragging object to save x, y and $('#draggable').offset() when mousedown.
+				window.my_dragging = {};
+				my_dragging.pageX0 = e.pageX;
+				my_dragging.pageY0 = e.pageY;
+				my_dragging.elem = this;
+				my_dragging.offset0 = $(this).offset();
+				function handle_dragging(e){
+					var left = my_dragging.offset0.left + (e.pageX - my_dragging.pageX0);
+					var top = my_dragging.offset0.top + (e.pageY - my_dragging.pageY0);
 					//send a 'drag' event to the server.
 					objectSocket.emit('drag', {
-						'strIdent': dragged.getAttribute('id'),
-						'intLeft': (event.pageX - shiftX), 
-						'intTop': (event.pageY - shiftY)
-					});	
-					console.log(dragged.getAttribute('id'), (event.pageX - shiftX), (event.pageY - shiftY));
-					
+						'strIdent': (my_dragging.elem).getAttribute('id'),
+						'intLeft': left, 
+						'intTop': top
+					});
 				}
-			});
-
-			$(document).on('mouseup', function(event) {
-					dragged = null;
+				function handle_mouseup(e){
+					//unattach the mousemove and mouseup listener from the body when mouseup from this element.
+					$('body')
+					.off('mousemove', handle_dragging)
+					.off('mouseup', handle_mouseup);
+				}
+				//attach a mouseup and mousemove listener to $('body') when mousedown in this element.
+				$('body')
+					.on('mouseup', handle_mouseup)
+					.on('mousemove', handle_dragging);
 			});
 			
-			$('.draggable')
-				.on('mousedown', function(event) {
-					if (event.which === 1) {
-						dragged = this;
-						shiftX = event.pageX - $(this).offset().left;
-						shiftY = event.pageY - $(this).offset().top;
-						console.log(shiftX, shiftY);
-					}
-			});
-
-			objectSocket.on('drag', function(objectData) {
-				//refresh with new position.
-				console.log("data from server");
-				console.log(objectData.strIdent, objectData.intTop, objectData.intLeft );
-				$(`#${objectData.strIdent}`)
-					.css({
-						'position': 'absolute',
-						'left': objectData.intLeft + 'px',
-						'top': objectData.intTop + 'px'
-				});
-
-			});
-		
+		objectSocket.on('drag', function(objectData) {
+			$('#' + objectData.strIdent)
+				.offset({top: objectData.intTop, left: objectData.intLeft});
+		});
 		
 		</script>
 	</body>
